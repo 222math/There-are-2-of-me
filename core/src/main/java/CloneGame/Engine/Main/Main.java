@@ -34,12 +34,12 @@ public class Main extends Game {
     @Override
     public void create() {
         Box2D.init();
-        world = new World(new Vector2(0 , -9.8f) , true);
+        world = new World(new Vector2(0 , -17f) , true);
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.setToOrtho(false , SCREEN_WIDTH , SCREEN_HEIGHT);
         world.setContactListener(new GameContactListener());
-        screenGame = new ScreenGame(this);
+        screenGame = new ScreenGame(this , 3);
         contactListener = new GameContactListener();
         world.setContactListener(contactListener);
 
