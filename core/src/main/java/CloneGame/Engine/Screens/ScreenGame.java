@@ -16,6 +16,7 @@ import java.util.List;
 
 import CloneGame.Engine.AnimatedClone;
 import CloneGame.Engine.AnimatedPlayer;
+import CloneGame.Engine.Audio.MusicManager;
 import CloneGame.Engine.Components.TextButton;
 import CloneGame.Engine.Levels.Level;
 import CloneGame.Engine.Levels.LevelManager;
@@ -74,6 +75,8 @@ public class ScreenGame extends ScreenAdapter {
         record = new Record();
 
         backgroundTexture = new Texture(BACKGROUND_IMG_PATH);
+
+        MusicManager.playGameMusic();
     }
 
     private void initUI() {
@@ -226,6 +229,8 @@ public class ScreenGame extends ScreenAdapter {
         else if (isReplaying && replay != null && !replay.isPlaying()) {
 
             isReplaying = false;
+
+            MusicManager.playGameMusic();
         }
     }
 
@@ -437,6 +442,7 @@ public class ScreenGame extends ScreenAdapter {
     }
 
     private void startReplay() {
+        MusicManager.playMenuMusic();
 
         isReplaying = true;
 

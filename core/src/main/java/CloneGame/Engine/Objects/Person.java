@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 
+import CloneGame.Engine.Audio.SoundManager;
+
 public class Person extends GameObject {
     private int speedX = 15;
     private static final float JUMP_FORCE = 15f;
@@ -48,6 +50,7 @@ public class Person extends GameObject {
             body.applyLinearImpulse(0, JUMP_FORCE, body.getPosition().x, body.getPosition().y, true);
             groundContacts = 0;
             isOnGround = false;
+            SoundManager.playJump();
         }
     }
 

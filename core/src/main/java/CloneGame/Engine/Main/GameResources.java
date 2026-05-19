@@ -11,9 +11,9 @@ public class GameResources {
     public static String PLATE_NOT_ACTIVATED_IMG_PATH = "plate/plate_0.png";
 
     // Платформы, портал, двери
-    public static String PLATFORM_IMG_PATH = "platform.png";
-    public static String PORTAL_IMG_PATH = "img_1.png";
-    public static String DOOR_IMG_PATH = "img.png";
+    public static String PLATFORM_IMG_PATH = "otherObjects/platform.png";
+    public static String PORTAL_IMG_PATH = "otherObjects/portal.png";
+    public static String DOOR_IMG_PATH = "otherObjects/door.png";
 
     // Кнопки управления
     public static String RIGHT_BUTTON_IMG_PATH = "button/r.png";

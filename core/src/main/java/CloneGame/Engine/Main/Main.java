@@ -14,7 +14,9 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.World;
 
+import CloneGame.Engine.Audio.SoundManager;
 import CloneGame.Engine.Screens.ScreenGame;
+import CloneGame.Engine.Screens.ScreenMenu;
 import CloneGame.Engine.Utils.GameContactListener;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -24,6 +26,7 @@ public class Main extends Game {
     public OrthographicCamera camera;
     public World world;
     ScreenGame screenGame;
+    ScreenMenu screenMenu;
     float accumulator = 0;
     public Vector3 touch;
     public GameContactListener contactListener;  // должно быть public, не private
@@ -34,16 +37,17 @@ public class Main extends Game {
     @Override
     public void create() {
         Box2D.init();
-        world = new World(new Vector2(0 , -17f) , true);
+        world = new World(new Vector2(0 , -20f) , true);
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.setToOrtho(false , SCREEN_WIDTH , SCREEN_HEIGHT);
         world.setContactListener(new GameContactListener());
-        screenGame = new ScreenGame(this , 3);
+        screenMenu = new ScreenMenu(this );
         contactListener = new GameContactListener();
         world.setContactListener(contactListener);
+        SoundManager.load();
 
-        setScreen(screenGame);
+        setScreen(screenMenu);
     }
 
     public void dispose(){

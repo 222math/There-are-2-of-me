@@ -13,7 +13,7 @@ public class LevelManager {
     public LevelManager(){
         levelClasses = new ArrayList<>();
 
-        levelClasses.add(Level0.class);
+
         levelClasses.add(Level1.class);
         levelClasses.add(Level2.class);
     }

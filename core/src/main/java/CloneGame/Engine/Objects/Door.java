@@ -7,6 +7,8 @@ import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.List;
 
+import CloneGame.Engine.Audio.SoundManager;
+
 public class Door extends GameObject {
 
     private boolean isOpen;
@@ -131,6 +133,8 @@ public class Door extends GameObject {
 
                 worldRef.destroyBody(body);
                 body = null;
+
+                SoundManager.playDoor();
 
                 System.out.println("Door " + id + " OPENED");
             }

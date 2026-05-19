@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 
+import CloneGame.Engine.Audio.SoundManager;
+
 public class PressurePlate extends GameObject {
 
     private boolean isActivated = false;
@@ -103,6 +105,8 @@ public class PressurePlate extends GameObject {
             pressedByPlayer || pressedByClone;
 
         if (newState != isActivated) {
+
+            SoundManager.playPlate();
 
             isActivated = newState;
             justChanged = true;
