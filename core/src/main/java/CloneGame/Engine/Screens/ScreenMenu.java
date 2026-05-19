@@ -1,7 +1,7 @@
 package CloneGame.Engine.Screens;
 
-import static CloneGame.Engine.Main.GameResources.BACKGROUND_IMG_PATH;
-import static CloneGame.Engine.Main.GameResources.BUTTON_BG_IMG_PATH;
+import static CloneGame.Engine.Main.GameResources.*;
+import static CloneGame.Engine.Main.GameSettings.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -10,61 +10,73 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-import CloneGame.Engine.Audio.MusicManager;
 import CloneGame.Engine.Components.TextButton;
+import CloneGame.Engine.Components.TutorialWindow;
 import CloneGame.Engine.Main.Main;
 
 public class ScreenMenu extends ScreenAdapter {
 
-    private final Main main;
+    private Main main;
 
     private Texture backgroundTexture;
 
     private TextButton playButton;
     private TextButton settingsButton;
+    private TextButton tutorialButton;
     private TextButton exitButton;
+
+    private TutorialWindow tutorialWindow;
+
+    private boolean showTutorial = false;
 
     public ScreenMenu(Main main) {
 
         this.main = main;
 
-        backgroundTexture = new Texture(BACKGROUND_IMG_PATH);
+        backgroundTexture =
+            new Texture(BACKGROUND_MENU_IMG_PATH);
 
-        initButtons();
-
-        MusicManager.playMenuMusic();
-    }
-
-    private void initButtons() {
+        tutorialWindow =
+            new TutorialWindow();
 
         playButton =
             new TextButton(
-                490,
+                470,
                 420,
-                300,
+                340,
                 90,
                 "PLAY",
-                BUTTON_BG_IMG_PATH
+                BUTTON_BG_GREEN_IMG_PATH
             );
 
         settingsButton =
             new TextButton(
-                490,
+                470,
                 300,
-                300,
+                340,
                 90,
                 "SETTINGS",
-                BUTTON_BG_IMG_PATH
+                BUTTON_BG_GREEN_IMG_PATH
+            );
+
+        tutorialButton =
+            new TextButton(
+                470,
+                180,
+                340,
+                90,
+                "TUTORIAL",
+                BUTTON_BG_GREEN_IMG_PATH
             );
 
         exitButton =
             new TextButton(
-                490,
-                180,
-                300,
+                470,
+                60,
+                340,
                 90,
                 "EXIT",
-                BUTTON_BG_IMG_PATH
+                BUTTON_BG_RED_IMG_PATH
             );
     }
 
@@ -72,48 +84,6 @@ public class ScreenMenu extends ScreenAdapter {
     public void render(float delta) {
 
         handleInput();
-
-        draw();
-    }
-
-    private void handleInput() {
-
-        if (!Gdx.input.justTouched()) {
-            return;
-        }
-
-        Vector3 touchPos = new Vector3(
-            Gdx.input.getX(),
-            Gdx.input.getY(),
-            0
-        );
-
-        main.camera.unproject(touchPos);
-
-        float x = touchPos.x;
-        float y = touchPos.y;
-
-        if (playButton.IsHit(x, y)) {
-
-            main.setScreen(
-                new ScreenLevelSelect(main)
-            );
-        }
-
-        if (settingsButton.IsHit(x, y)) {
-
-            main.setScreen(
-                new ScreenSettings(main)
-            );
-        }
-
-        if (exitButton.IsHit(x, y)) {
-
-            Gdx.app.exit();
-        }
-    }
-
-    private void draw() {
 
         ScreenUtils.clear(Color.BLACK);
 
@@ -129,15 +99,79 @@ public class ScreenMenu extends ScreenAdapter {
             backgroundTexture,
             0,
             0,
-            1280,
-            720
+            SCREEN_WIDTH,
+            SCREEN_HEIGHT
         );
 
         playButton.draw(main.batch);
+
         settingsButton.draw(main.batch);
+
+        tutorialButton.draw(main.batch);
+
         exitButton.draw(main.batch);
 
+        if (showTutorial) {
+            tutorialWindow.draw(main.batch);
+        }
+
         main.batch.end();
+    }
+
+    private void handleInput() {
+
+        if (!Gdx.input.justTouched()) {
+            return;
+        }
+
+        Vector3 touchPos = new Vector3();
+
+        touchPos.set(
+            Gdx.input.getX(),
+            Gdx.input.getY(),
+            0
+        );
+
+        main.camera.unproject(touchPos);
+
+        float x = touchPos.x;
+        float y = touchPos.y;
+
+        // ===== CLOSE TUTORIAL =====
+
+        if (showTutorial) {
+
+            if (tutorialWindow.isClosePressed(x, y)) {
+
+                showTutorial = false;
+            }
+
+            return;
+        }
+
+        if (playButton.IsHit(x, y)) {
+
+            main.setScreen(
+                new ScreenLevelSelect(main)
+            );
+        }
+
+        if (settingsButton.IsHit(x, y)) {
+
+            main.setScreen(
+                new ScreenSettings(main)
+            );
+        }
+
+        if (tutorialButton.IsHit(x, y)) {
+
+            showTutorial = true;
+        }
+
+        if (exitButton.IsHit(x, y)) {
+
+            Gdx.app.exit();
+        }
     }
 
     @Override
@@ -146,7 +180,13 @@ public class ScreenMenu extends ScreenAdapter {
         backgroundTexture.dispose();
 
         playButton.dispose();
+
         settingsButton.dispose();
+
+        tutorialButton.dispose();
+
         exitButton.dispose();
+
+        tutorialWindow.dispose();
     }
 }

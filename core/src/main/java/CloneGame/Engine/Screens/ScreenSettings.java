@@ -1,7 +1,7 @@
 package CloneGame.Engine.Screens;
 
-import static CloneGame.Engine.Main.GameResources.BACKGROUND_IMG_PATH;
-import static CloneGame.Engine.Main.GameResources.BUTTON_BG_IMG_PATH;
+import static CloneGame.Engine.Main.GameResources.BACKGROUND_MENU_IMG_PATH;
+import static CloneGame.Engine.Main.GameResources.BUTTON_BG_GREEN_IMG_PATH;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -26,7 +26,7 @@ public class ScreenSettings extends ScreenAdapter {
         this.main = main;
 
         backgroundTexture =
-            new Texture(BACKGROUND_IMG_PATH);
+            new Texture(BACKGROUND_MENU_IMG_PATH);
 
         initButtons();
     }
@@ -40,7 +40,7 @@ public class ScreenSettings extends ScreenAdapter {
                 200,
                 70,
                 "OK",
-                BUTTON_BG_IMG_PATH
+                BUTTON_BG_GREEN_IMG_PATH
             );
     }
 

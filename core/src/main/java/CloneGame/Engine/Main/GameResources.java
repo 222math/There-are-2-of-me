@@ -21,10 +21,12 @@ public class GameResources {
     public static String JUMP_BUTTON_IMG_PATH = "button/j.png";
 
     // Фон
-    public static String BACKGROUND_IMG_PATH = "img_2.png";
+    public static String BACKGROUND_MENU_IMG_PATH = "background/menu.png";
+    public static String BACKGROUND_GAME_IMG_PATH = "background/game.png";
 
     // Общий фон для кнопок (меню, запись, уровни)
-    public static String BUTTON_BG_IMG_PATH = "img.png";
+    public static String BUTTON_BG_GREEN_IMG_PATH = "button/green.png";
+    public static String BUTTON_BG_RED_IMG_PATH = "button/red.png";
 
     // Анимация Зоро (кадры)
     public static String ZORO_IDLE_RIGHT = "zoro/img_5.png";
@@ -40,4 +42,7 @@ public class GameResources {
 
     public static String ZORO_JUMP_RIGHT = "zoro/img_5.png";
     public static String ZORO_JUMP_LEFT = "zoro/img_4.png";
+
+    public static String TUTORIAL_BG_PATH =
+        "img.png";
 }

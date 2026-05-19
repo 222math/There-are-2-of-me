@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 
+import CloneGame.Engine.Utils.FontManager;
+
 public class TextButton {
     BitmapFont font;
     String text;
@@ -23,9 +25,8 @@ public class TextButton {
         this.buttonHeight = height;
         this.text = text;
 
-        font = new BitmapFont();
-        font.getData().setScale(5f);
-        font.setColor(Color.WHITE);
+        font = FontManager.font32;
+
 
         GlyphLayout gl = new GlyphLayout(font , text);
         textHeight = (int) gl.height;
@@ -41,7 +42,6 @@ public class TextButton {
     }
     public void dispose(){
         texture.dispose();
-        font.dispose();
     }
     public  boolean IsHit(float tx , float ty){
         if (tx >= x && tx <= x + buttonWidth && ty >= y && ty <= y + buttonHeight){

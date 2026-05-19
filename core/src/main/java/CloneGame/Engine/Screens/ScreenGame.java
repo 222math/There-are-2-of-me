@@ -56,6 +56,7 @@ public class ScreenGame extends ScreenAdapter {
     private TextButton recordStartButton;
     private TextButton recordEndButton;
     private TextButton replayButton;
+    private TextButton menuButton;
 
     private Texture backgroundTexture;
 
@@ -74,7 +75,7 @@ public class ScreenGame extends ScreenAdapter {
 
         record = new Record();
 
-        backgroundTexture = new Texture(BACKGROUND_IMG_PATH);
+        backgroundTexture = new Texture(BACKGROUND_GAME_IMG_PATH);
 
         MusicManager.playGameMusic();
     }
@@ -83,9 +84,11 @@ public class ScreenGame extends ScreenAdapter {
         leftMoveButton   = new TextButton(50, 50, 75, 75, "", LEFT_BUTTON_IMG_PATH);
         rightMoveButton  = new TextButton(135, 50, 75, 75, "", RIGHT_BUTTON_IMG_PATH);
         jumpButton       = new TextButton(1200, 50, 75, 75, "", JUMP_BUTTON_IMG_PATH);
-        recordStartButton = new TextButton(400, 600, 100, 100, "recS", BUTTON_BG_IMG_PATH);
-        recordEndButton   = new TextButton(600, 600, 100, 100, "recE", BUTTON_BG_IMG_PATH);
-        replayButton      = new TextButton(720, 600, 100, 100, "rep", BUTTON_BG_IMG_PATH);
+        recordStartButton = new TextButton(300, 600, 150, 100, "recS", BUTTON_BG_GREEN_IMG_PATH);
+        recordEndButton   = new TextButton(500, 600, 150, 100, "recE", BUTTON_BG_GREEN_IMG_PATH);
+        replayButton      = new TextButton(720, 600, 100, 100, "rep", BUTTON_BG_RED_IMG_PATH);
+        menuButton = new TextButton(1040, 620, 180, 100, "in MENU", BUTTON_BG_RED_IMG_PATH
+            );
     }
 
     private void initAnimations() {
@@ -412,6 +415,11 @@ public class ScreenGame extends ScreenAdapter {
                 ) {
                     startReplay();
                 }
+                if (menuButton.IsHit(worldX , worldY)){
+                    main.setScreen(
+                        new ScreenMenu(main)
+                    );
+                }
             }
         }
 
@@ -481,11 +489,11 @@ public class ScreenGame extends ScreenAdapter {
 
         drawWorld();
 
-        drawUI();
-
         drawReplay();
 
         portal.draw(main.batch);
+
+        drawUI();
 
         main.batch.end();
     }
@@ -502,6 +510,12 @@ public class ScreenGame extends ScreenAdapter {
     }
 
     private void drawWorld() {
+        if (doors != null) {
+
+            for (Door door : doors) {
+                door.draw(main.batch);
+            }
+        }
 
         animatedPlayer.draw(main.batch);
 
@@ -513,15 +527,11 @@ public class ScreenGame extends ScreenAdapter {
             plate.draw(main.batch);
         }
 
-        if (doors != null) {
 
-            for (Door door : doors) {
-                door.draw(main.batch);
-            }
-        }
     }
 
     private void drawUI() {
+        menuButton.draw(main.batch);
 
         leftMoveButton.draw(main.batch);
 
@@ -582,6 +592,7 @@ public class ScreenGame extends ScreenAdapter {
         recordStartButton.dispose();
         recordEndButton.dispose();
         replayButton.dispose();
+        menuButton.dispose();
 
         if (person != null) {
             person.dispose();

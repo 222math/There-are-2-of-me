@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import CloneGame.Engine.Audio.SoundManager;
 import CloneGame.Engine.Screens.ScreenGame;
 import CloneGame.Engine.Screens.ScreenMenu;
+import CloneGame.Engine.Utils.FontManager;
 import CloneGame.Engine.Utils.GameContactListener;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
@@ -42,11 +43,11 @@ public class Main extends Game {
         camera = new OrthographicCamera();
         camera.setToOrtho(false , SCREEN_WIDTH , SCREEN_HEIGHT);
         world.setContactListener(new GameContactListener());
-        screenMenu = new ScreenMenu(this );
         contactListener = new GameContactListener();
         world.setContactListener(contactListener);
         SoundManager.load();
-
+        FontManager.load();
+        screenMenu = new ScreenMenu(this );
         setScreen(screenMenu);
     }
 

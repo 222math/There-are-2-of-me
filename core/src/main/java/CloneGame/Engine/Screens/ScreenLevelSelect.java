@@ -1,9 +1,7 @@
 package CloneGame.Engine.Screens;
 
-import static CloneGame.Engine.Main.GameResources.BACKGROUND_IMG_PATH;
-import static CloneGame.Engine.Main.GameResources.BUTTON_BG_IMG_PATH;
-import static CloneGame.Engine.Main.GameSettings.SCREEN_HEIGHT;
-import static CloneGame.Engine.Main.GameSettings.SCREEN_WIDTH;
+import static CloneGame.Engine.Main.GameResources.*;
+import static CloneGame.Engine.Main.GameSettings.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -32,7 +30,7 @@ public class ScreenLevelSelect extends ScreenAdapter {
         this.main = main;
 
         backgroundTexture =
-            new Texture(BACKGROUND_IMG_PATH);
+            new Texture(BACKGROUND_MENU_IMG_PATH);
 
         level1Button =
             new TextButton(
@@ -41,7 +39,7 @@ public class ScreenLevelSelect extends ScreenAdapter {
                 220,
                 140,
                 "LEVEL 1",
-                BUTTON_BG_IMG_PATH
+                BUTTON_BG_GREEN_IMG_PATH
             );
 
         level2Button =
@@ -51,7 +49,7 @@ public class ScreenLevelSelect extends ScreenAdapter {
                 220,
                 140,
                 "LEVEL 2",
-                BUTTON_BG_IMG_PATH
+                BUTTON_BG_GREEN_IMG_PATH
             );
 
         level3Button =
@@ -61,7 +59,7 @@ public class ScreenLevelSelect extends ScreenAdapter {
                 220,
                 140,
                 "LEVEL 3",
-                BUTTON_BG_IMG_PATH
+                BUTTON_BG_GREEN_IMG_PATH
             );
 
         menuButton =
@@ -71,7 +69,7 @@ public class ScreenLevelSelect extends ScreenAdapter {
                 160,
                 70,
                 "MENU",
-                BUTTON_BG_IMG_PATH
+                BUTTON_BG_RED_IMG_PATH
             );
     }
 
@@ -90,11 +88,18 @@ public class ScreenLevelSelect extends ScreenAdapter {
 
         main.batch.begin();
 
-
-        main.batch.draw(backgroundTexture , 0 , 0 , SCREEN_WIDTH , SCREEN_HEIGHT) ;
+        main.batch.draw(
+            backgroundTexture,
+            0,
+            0,
+            SCREEN_WIDTH,
+            SCREEN_HEIGHT
+        );
 
         level1Button.draw(main.batch);
+
         level2Button.draw(main.batch);
+
         level3Button.draw(main.batch);
 
         menuButton.draw(main.batch);
@@ -108,7 +113,7 @@ public class ScreenLevelSelect extends ScreenAdapter {
             return;
         }
 
-          Vector3 touchPos = new Vector3();
+        Vector3 touchPos = new Vector3();
 
         touchPos.set(
             Gdx.input.getX(),
@@ -156,7 +161,9 @@ public class ScreenLevelSelect extends ScreenAdapter {
         backgroundTexture.dispose();
 
         level1Button.dispose();
+
         level2Button.dispose();
+
         level3Button.dispose();
 
         menuButton.dispose();
