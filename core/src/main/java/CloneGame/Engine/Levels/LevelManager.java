@@ -16,6 +16,7 @@ public class LevelManager {
 
         levelClasses.add(Level1.class);
         levelClasses.add(Level2.class);
+        levelClasses.add(Level3.class);
     }
 
     public Level loadLevel(int index , World world){

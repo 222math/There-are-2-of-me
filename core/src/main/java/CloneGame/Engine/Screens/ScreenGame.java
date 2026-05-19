@@ -14,8 +14,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.util.List;
 
-import CloneGame.Engine.AnimatedClone;
-import CloneGame.Engine.AnimatedPlayer;
+import CloneGame.Engine.Animated.AnimatedClone;
+import CloneGame.Engine.Animated.AnimatedPlayer;
 import CloneGame.Engine.Audio.MusicManager;
 import CloneGame.Engine.Components.TextButton;
 import CloneGame.Engine.Levels.Level;

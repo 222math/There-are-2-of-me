@@ -1,8 +1,7 @@
-package CloneGame.Engine;
+package CloneGame.Engine.Animated;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class AnimatedPlayer extends Sprite {
     private Texture idleTexture;
