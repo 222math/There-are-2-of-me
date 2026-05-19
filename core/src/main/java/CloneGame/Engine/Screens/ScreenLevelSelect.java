@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import CloneGame.Engine.Components.TextButton;
@@ -107,10 +108,18 @@ public class ScreenLevelSelect extends ScreenAdapter {
             return;
         }
 
-        float x = Gdx.input.getX();
+          Vector3 touchPos = new Vector3();
 
-        float y =
-            720 - Gdx.input.getY();
+        touchPos.set(
+            Gdx.input.getX(),
+            Gdx.input.getY(),
+            0
+        );
+
+        main.camera.unproject(touchPos);
+
+        float x = touchPos.x;
+        float y = touchPos.y;
 
         if (level1Button.IsHit(x, y)) {
 
