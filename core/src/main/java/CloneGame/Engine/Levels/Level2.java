@@ -43,7 +43,7 @@ public class Level2 extends Level {
 
 
 
-        platforms.add(new Platform(PLATFORM_IMG_PATH, 300, 160, 650, 25, world)); //l
+        platforms.add(new Platform(PLATFORM_IMG_PATH, 300, 170, 650, 25, world)); //l
         platforms.add(new Platform(PLATFORM_IMG_PATH, 450, 220, 80, 25, world));
 
 
@@ -63,11 +63,12 @@ public class Level2 extends Level {
             35, 15, 50, 12, world, 1));
         plates.add(new PressurePlate(PLATE_NOT_ACTIVATED_IMG_PATH, PLATE_ACTIVATED_IMG_PATH,
             1050, 274, 50, 12, world, 2));
-        plates.add(new PressurePlate(PLATE_NOT_ACTIVATED_IMG_PATH, PLATE_ACTIVATED_IMG_PATH,
-            35, 175, 50, 12, world, 3));
 
-        doors.add(new Door(DOOR_IMG_PATH, 560, 80, 20, 170, world, 1, new int[]{1}));
-        doors.add(new Door(DOOR_IMG_PATH, 250, 225, 20, 140, world, 2, new int[]{2}));
+        plates.add(new PressurePlate(PLATE_NOT_ACTIVATED_IMG_PATH, PLATE_ACTIVATED_IMG_PATH,
+            35, 185, 50, 12, world, 3));
+
+        doors.add(new Door(DOOR_IMG_PATH, 560, 85, 20, 160, world, 1, new int[]{1}));
+        doors.add(new Door(DOOR_IMG_PATH, 250, 225, 20, 130, world, 2, new int[]{2}));
         doors.add(new Door(DOOR_IMG_PATH, 150, 350, 20, 120, world, 3, new int[]{3}));
 
 

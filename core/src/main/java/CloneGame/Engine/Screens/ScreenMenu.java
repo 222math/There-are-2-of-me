@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import CloneGame.Engine.Audio.MusicManager;
 import CloneGame.Engine.Components.TextButton;
 import CloneGame.Engine.Components.TutorialWindow;
 import CloneGame.Engine.Main.Main;
@@ -41,43 +42,44 @@ public class ScreenMenu extends ScreenAdapter {
 
         playButton =
             new TextButton(
-                470,
+                430,
+                50,
                 420,
-                340,
-                90,
-                "PLAY",
-                BUTTON_BG_GREEN_IMG_PATH
+                200,
+                "",
+                BUTTON_BG_PLAY_IMG_PATH
             );
 
         settingsButton =
             new TextButton(
-                470,
-                300,
-                340,
-                90,
+                70,
+                260,
+                320,
+                85,
                 "SETTINGS",
                 BUTTON_BG_GREEN_IMG_PATH
             );
 
         tutorialButton =
             new TextButton(
-                470,
-                180,
-                340,
-                90,
+                70,
+                150,
+                320,
+                85,
                 "TUTORIAL",
                 BUTTON_BG_GREEN_IMG_PATH
             );
 
         exitButton =
             new TextButton(
-                470,
-                60,
-                340,
-                90,
+                980,
+                25,
+                250,
+                75,
                 "EXIT",
                 BUTTON_BG_RED_IMG_PATH
             );
+        MusicManager.playMenuMusic();
     }
 
     @Override

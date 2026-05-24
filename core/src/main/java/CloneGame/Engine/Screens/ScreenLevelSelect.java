@@ -30,44 +30,44 @@ public class ScreenLevelSelect extends ScreenAdapter {
         this.main = main;
 
         backgroundTexture =
-            new Texture(BACKGROUND_MENU_IMG_PATH);
+            new Texture(BACKGROUND_LEVELS_IMG_PATH);
 
         level1Button =
             new TextButton(
-                180,
-                320,
+                80,
+                380,
                 220,
                 140,
-                "LEVEL 1",
+                "",
                 BUTTON_BG_GREEN_IMG_PATH
             );
 
         level2Button =
             new TextButton(
-                530,
-                320,
+                370,
+                370,
                 220,
                 140,
-                "LEVEL 2",
+                "",
                 BUTTON_BG_GREEN_IMG_PATH
             );
 
         level3Button =
             new TextButton(
-                880,
-                320,
+                650,
+                360,
                 220,
                 140,
-                "LEVEL 3",
+                "",
                 BUTTON_BG_GREEN_IMG_PATH
             );
 
         menuButton =
             new TextButton(
-                40,
-                620,
-                160,
-                70,
+                35,
+                35,
+                190,
+                80,
                 "MENU",
                 BUTTON_BG_RED_IMG_PATH
             );
@@ -96,13 +96,13 @@ public class ScreenLevelSelect extends ScreenAdapter {
             SCREEN_HEIGHT
         );
 
-        level1Button.draw(main.batch);
+//        level1Button.draw(main.batch);
+//
+//        level2Button.draw(main.batch);
+//
+//        level3Button.draw(main.batch);
 
-        level2Button.draw(main.batch);
-
-        level3Button.draw(main.batch);
-
-        menuButton.draw(main.batch);
+//        menuButton.draw(main.batch);
 
         main.batch.end();
     }
@@ -160,12 +160,12 @@ public class ScreenLevelSelect extends ScreenAdapter {
 
         backgroundTexture.dispose();
 
-        level1Button.dispose();
+//        level1Button.dispose();
+//
+//        level2Button.dispose();
+//
+//        level3Button.dispose();
 
-        level2Button.dispose();
-
-        level3Button.dispose();
-
-        menuButton.dispose();
+//        menuButton.dispose();
     }
 }

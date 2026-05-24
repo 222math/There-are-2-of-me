@@ -12,250 +12,306 @@ import CloneGame.Engine.Utils.FontManager;
 public class TutorialWindow {
 
     private BitmapFont font;
+    private BitmapFont titleFont;
 
-    // Фон окна
-    private Texture backgroundTexture;
+    private Texture bg;
 
-    // Иконки
-    private Texture recTexture;
-    private Texture replayTexture;
+    private Texture leftBtn;
+    private Texture rightBtn;
+    private Texture jumpBtn;
 
-    private Texture plateTexture;
-    private Texture doorTexture;
+    private Texture recBtn;
+    private Texture stopBtn;
+    private Texture replayBtn;
 
-    private Texture portalTexture;
-    private Texture cloneTexture;
+    private Texture plate;
+    private Texture door;
+    private Texture portal;
+    private Texture clone;
 
-    // Кнопка закрытия
-    private Texture closeTexture;
+    private TextButton closeButton;
 
     public TutorialWindow() {
 
         font = FontManager.font32;
+        titleFont = FontManager.font32;
 
-        backgroundTexture =
-            new Texture(TUTORIAL_BG_PATH);
+        bg = new Texture(TUTORIAL_BG_PATH);
 
-        recTexture =
-            new Texture(BUTTON_BG_GREEN_IMG_PATH);
+        leftBtn = new Texture(LEFT_BUTTON_IMG_PATH);
+        rightBtn = new Texture(RIGHT_BUTTON_IMG_PATH);
+        jumpBtn = new Texture(JUMP_BUTTON_IMG_PATH);
 
-        replayTexture =
-            new Texture(BUTTON_BG_GREEN_IMG_PATH);
+        recBtn = new Texture(BUTTON_BG_RECORD_IMG_PATH);
+        stopBtn = new Texture(BUTTON_BG_STOP_IMG_PATH);
+        replayBtn = new Texture(BUTTON_BG_REPLAY_IMG_PATH);
 
-        plateTexture =
-            new Texture(
-                PLATE_ACTIVATED_IMG_PATH
-            );
+        plate = new Texture(PLATE_ACTIVATED_IMG_PATH);
+        door = new Texture(DOOR_IMG_PATH);
+        portal = new Texture(PORTAL_IMG_PATH);
 
-        doorTexture =
-            new Texture(DOOR_IMG_PATH);
+        clone = new Texture(ZORO_IDLE_RIGHT);
 
-        portalTexture =
-            new Texture(PORTAL_IMG_PATH);
-
-        cloneTexture =
-            new Texture(
-                ZORO_IDLE_LEFT
-            );
-
-        closeTexture =
-            new Texture(BUTTON_BG_GREEN_IMG_PATH);
+        closeButton = new TextButton(
+            980,
+            600,
+            185,
+            60,
+            "CLOSE",
+            BUTTON_BG_RED_IMG_PATH
+        );
     }
 
     public void draw(SpriteBatch batch) {
 
-        // ===== СИНИЙ ПОЛУПРОЗРАЧНЫЙ ФОН =====
-
-        Color oldColor = batch.getColor();
-
         batch.setColor(
-            0.05f,
-            0.08f,
-            0.15f,
-            0.95f
+            0f,
+            0f,
+            0f,
+            0.88f
         );
 
         batch.draw(
-            backgroundTexture,
-            180,
+            bg,
             60,
-            920,
-            600
-        );
-
-        batch.setColor(oldColor);
-
-        // ===== КНОПКА CLOSE =====
-
-        batch.setColor(
-            0.7f,
-            0.1f,
-            0.1f,
-            1f
-        );
-
-        batch.draw(
-            closeTexture,
-            980,
-            590,
-            80,
-            50
+            25,
+            1160,
+            670
         );
 
         batch.setColor(Color.WHITE);
 
-        font.draw(
+        titleFont.setColor(Color.GOLD);
+
+        titleFont.draw(
             batch,
-            "X",
-            1010,
-            625
+            "HOW TO PLAY",
+            310,
+            655
         );
 
-        // ===== REC =====
+        font.setColor(Color.WHITE);
+
+        closeButton.draw(batch);
+
+        // ===== LEFT =====
 
         batch.draw(
-            recTexture,
-            240,
-            560,
-            60,
-            60
-        );
-
-        font.draw(
-            batch,
-            "REC - START RECORDING",
-            360,
-            600
-        );
-
-        // ===== REPLAY =====
-
-        batch.draw(
-            replayTexture,
-            240,
-            480,
-            60,
-            60
-        );
-
-        font.draw(
-            batch,
-            "REPLAY - CREATE CLONE",
-            360,
-            520
-        );
-
-        // ===== CLONE =====
-
-        batch.setColor(
-            1,
-            1,
-            1,
-            0.45f
-        );
-
-        batch.draw(
-            cloneTexture,
-            240,
-            390,
+            leftBtn,
+            120,
+            500,
             70,
-            90
+            70
         );
-
-        batch.setColor(Color.WHITE);
 
         font.draw(
             batch,
-            "CLONE REPEATS YOUR ACTIONS",
-            360,
-            440
-        );
-
-        // ===== PLATE =====
-
-        batch.setColor(
-            0.2f,
-            1f,
-            0.2f,
-            1f
+            "MOVE LEFT",
+            230,
+            545
         );
 
         batch.draw(
-            plateTexture,
-            240,
+            rightBtn,
+            120,
+            410,
+            70,
+            70
+        );
+
+        font.draw(
+            batch,
+            "MOVE RIGHT",
+            230,
+            455
+        );
+
+        batch.draw(
+            jumpBtn,
+            120,
             320,
             70,
-            25
+            70
         );
-
-        batch.setColor(Color.WHITE);
 
         font.draw(
             batch,
-            "PLATE OPENS DOORS",
-            360,
-            350
+            "JUMP",
+            230,
+            365
         );
 
-        // ===== DOOR =====
+        batch.draw(
+            recBtn,
+            115,
+            220,
+            90,
+            55
+        );
+
+        font.draw(
+            batch,
+            "START RECORDING",
+            230,
+            258
+        );
 
         batch.draw(
-            doorTexture,
-            250,
-            190,
-            40,
+            stopBtn,
+            115,
+            135,
+            90,
+            55
+        );
+
+        font.draw(
+            batch,
+            "STOP RECORDING",
+            230,
+            173
+        );
+
+        batch.draw(
+            replayBtn,
+            115,
+            50,
+            90,
+            55
+        );
+
+        font.draw(
+            batch,
+            "CREATE CLONE",
+            230,
+            88
+        );
+
+        // ===== RIGHT =====
+
+        batch.setColor(
+            1f,
+            1f,
+            1f,
+            0.5f
+        );
+
+        batch.draw(
+            clone,
+            620,
+            500,
+            80,
             100
         );
 
+        batch.setColor(Color.WHITE);
+
         font.draw(
             batch,
-            "DOOR BLOCKS THE WAY",
-            360,
-            250
+            "CLONE REPEATS",
+            760,
+            555
         );
 
-        // ===== PORTAL =====
+        font.draw(
+            batch,
+            "YOUR ACTIONS",
+            760,
+            515
+        );
 
         batch.draw(
-            portalTexture,
-            240,
-            70,
-            70,
-            90
+            plate,
+            620,
+            365,
+            75,
+            75
         );
 
         font.draw(
             batch,
-            "PORTAL FINISHES LEVEL",
-            360,
-            130
+            "PLATES OPEN",
+            760,
+            425
+        );
+
+        font.draw(
+            batch,
+            "DOORS",
+            760,
+            385
+        );
+
+        batch.draw(
+            door,
+            620,
+            220,
+            70,
+            120
+        );
+
+        font.draw(
+            batch,
+            "DOORS BLOCK",
+            760,
+            300
+        );
+
+        font.draw(
+            batch,
+            "YOUR PATH",
+            760,
+            260
+        );
+
+        batch.draw(
+            portal,
+            610,
+            40,
+            90,
+            120
+        );
+
+        font.draw(
+            batch,
+            "PORTAL FINISHES",
+            760,
+            125
+        );
+
+        font.draw(
+            batch,
+            "THE LEVEL",
+            760,
+            85
         );
     }
 
-    public boolean isClosePressed(float x, float y) {
+    public boolean isClosePressed(
+        float x,
+        float y
+    ) {
 
-        return x >= 980 &&
-            x <= 1060 &&
-            y >= 590 &&
-            y <= 640;
+        return closeButton.IsHit(x, y);
     }
 
     public void dispose() {
 
-        backgroundTexture.dispose();
+        bg.dispose();
 
-        recTexture.dispose();
+        leftBtn.dispose();
+        rightBtn.dispose();
+        jumpBtn.dispose();
 
-        replayTexture.dispose();
+        recBtn.dispose();
+        stopBtn.dispose();
+        replayBtn.dispose();
 
-        plateTexture.dispose();
+        plate.dispose();
+        door.dispose();
+        portal.dispose();
 
-        doorTexture.dispose();
+        clone.dispose();
 
-        portalTexture.dispose();
-
-        cloneTexture.dispose();
-
-        closeTexture.dispose();
+        closeButton.dispose();
     }
 }

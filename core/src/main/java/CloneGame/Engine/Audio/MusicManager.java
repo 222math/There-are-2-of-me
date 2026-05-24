@@ -10,7 +10,6 @@ public class MusicManager {
     private static float volume = 0.3f;
 
     public static void playMenuMusic() {
-
         play("music/menu.mp3", true);
     }
 

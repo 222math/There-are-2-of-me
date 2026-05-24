@@ -18,6 +18,7 @@ public class TextButton {
     int textX , textY;
     int textWidth , textHeight;
     int buttonWidth = 700, buttonHeight = 200;
+    private float alpha = 1f;
     public TextButton(int x , int y , int width , int height, String text , String pathToTexture){
         this.x = x;
         this.y = y;
@@ -37,8 +38,10 @@ public class TextButton {
         textY = y + (buttonHeight + textHeight)/2;
     }
     public void draw(Batch batch){
+        batch.setColor(1, 1, 1, alpha);
         batch.draw(texture , x , y , buttonWidth , buttonHeight);
         font.draw(batch , text , textX , textY);
+        batch.setColor(Color.WHITE);
     }
     public void dispose(){
         texture.dispose();
@@ -49,5 +52,8 @@ public class TextButton {
         } else {
             return false;
         }
+    }
+    public void setAlpha(float alpha){
+        this.alpha = alpha;
     }
 }

@@ -3,13 +3,17 @@ package CloneGame.Engine.Screens;
 import static CloneGame.Engine.Main.GameResources.*;
 import static CloneGame.Engine.Main.GameSettings.PERSON_HEIGHT;
 import static CloneGame.Engine.Main.GameSettings.PERSON_WIDTH;
+import static CloneGame.Engine.Main.GameSettings.SCREEN_HEIGHT;
+import static CloneGame.Engine.Main.GameSettings.SCREEN_WIDTH;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.util.List;
@@ -28,6 +32,7 @@ import CloneGame.Engine.Objects.Portal;
 import CloneGame.Engine.Objects.PressurePlate;
 import CloneGame.Engine.Recording.Record;
 import CloneGame.Engine.Recording.Replay;
+import CloneGame.Engine.Utils.FontManager;
 
 public class ScreenGame extends ScreenAdapter {
 
@@ -59,6 +64,9 @@ public class ScreenGame extends ScreenAdapter {
     private TextButton menuButton;
 
     private Texture backgroundTexture;
+    private Texture darkTexture;
+
+    private BitmapFont uiFont;
 
     private boolean isRecording = false;
     private boolean isReplaying = false;
@@ -77,24 +85,88 @@ public class ScreenGame extends ScreenAdapter {
 
         backgroundTexture = new Texture(BACKGROUND_GAME_IMG_PATH);
 
+        darkTexture = new Texture("img_3.png");
+        uiBg = new Texture("img_3.png");
+
+        uiFont = FontManager.font32;
+
         MusicManager.playGameMusic();
     }
 
     private void initUI() {
-        leftMoveButton   = new TextButton(50, 50, 75, 75, "", LEFT_BUTTON_IMG_PATH);
-        rightMoveButton  = new TextButton(135, 50, 75, 75, "", RIGHT_BUTTON_IMG_PATH);
-        jumpButton       = new TextButton(1200, 50, 75, 75, "", JUMP_BUTTON_IMG_PATH);
-        recordStartButton = new TextButton(300, 600, 150, 100, "recS", BUTTON_BG_GREEN_IMG_PATH);
-        recordEndButton   = new TextButton(500, 600, 150, 100, "recE", BUTTON_BG_GREEN_IMG_PATH);
-        replayButton      = new TextButton(720, 600, 100, 100, "rep", BUTTON_BG_RED_IMG_PATH);
-        menuButton = new TextButton(1040, 620, 180, 100, "in MENU", BUTTON_BG_RED_IMG_PATH
-            );
+
+        leftMoveButton = new TextButton(
+            50,
+            50,
+            120,
+            120,
+            "",
+            LEFT_BUTTON_IMG_PATH
+        );
+
+        rightMoveButton = new TextButton(
+            165,
+            50,
+            120,
+            120,
+            "",
+            RIGHT_BUTTON_IMG_PATH
+        );
+
+        jumpButton = new TextButton(
+            1100,
+            50,
+            120,
+            120,
+            "",
+            JUMP_BUTTON_IMG_PATH
+        );
+
+        recordStartButton = new TextButton(
+            20,
+            600,
+            130,
+            90,
+            "",
+            BUTTON_BG_RECORD_IMG_PATH
+        );
+
+        recordEndButton = new TextButton(
+            155,
+            600,
+            130,
+            90,
+            "",
+            BUTTON_BG_STOP_IMG_PATH
+        );
+
+        replayButton = new TextButton(
+            290,
+            600,
+            110,
+            90,
+            "",
+            BUTTON_BG_REPLAY_IMG_PATH
+        );
+
+        menuButton = new TextButton(
+            1040,
+            620,
+            180,
+            100,
+            "MENU",
+            BUTTON_BG_RED_IMG_PATH
+        );
+
+        leftMoveButton.setAlpha(0.45f);
+        rightMoveButton.setAlpha(0.45f);
+        jumpButton.setAlpha(0.45f);
     }
 
     private void initAnimations() {
 
         Texture idleRight = new Texture(ZORO_IDLE_RIGHT);
-        Texture idleLeft  = new Texture(ZORO_IDLE_LEFT);
+        Texture idleLeft = new Texture(ZORO_IDLE_LEFT);
 
         Texture walk1R = new Texture(ZORO_WALK1_RIGHT);
         Texture walk2R = new Texture(ZORO_WALK2_RIGHT);
@@ -105,8 +177,7 @@ public class ScreenGame extends ScreenAdapter {
         Texture walk3L = new Texture(ZORO_WALK3_LEFT);
 
         Texture jumpRight = new Texture(ZORO_JUMP_RIGHT);
-        Texture jumpLeft  = new Texture(ZORO_JUMP_LEFT);
-
+        Texture jumpLeft = new Texture(ZORO_JUMP_LEFT);
 
         Texture[] walkFramesRight = {
             walk1R,
@@ -145,9 +216,23 @@ public class ScreenGame extends ScreenAdapter {
 
     private void initLevel(int levelNumber) {
 
+        main.world.dispose();
+
+        main.world = new World(
+            new Vector2(0, -20f),
+            true
+        );
+
+        main.world.setContactListener(
+            main.contactListener
+        );
+
         levelManager = new LevelManager();
 
-        level = levelManager.loadLevel(levelNumber, main.world);
+        level = levelManager.loadLevel(
+            levelNumber,
+            main.world
+        );
 
         platforms = level.getPlatforms();
         plates = level.getPlates();
@@ -221,15 +306,21 @@ public class ScreenGame extends ScreenAdapter {
 
     private void updateReplay(float delta) {
 
-        if (isReplaying && replay != null && replay.isPlaying()) {
-
-
+        if (
+            isReplaying
+                && replay != null
+                && replay.isPlaying()
+        ) {
 
             replay.updPlate(gameTime);
 
             replay.update(delta);
         }
-        else if (isReplaying && replay != null && !replay.isPlaying()) {
+        else if (
+            isReplaying
+                && replay != null
+                && !replay.isPlaying()
+        ) {
 
             isReplaying = false;
 
@@ -249,7 +340,8 @@ public class ScreenGame extends ScreenAdapter {
                     && replay.isPlaying()
             ) {
 
-                Vector2 clonePos = replay.getCurrentPosition();
+                Vector2 clonePos =
+                    replay.getCurrentPosition();
 
                 if (clonePos != null) {
 
@@ -266,7 +358,10 @@ public class ScreenGame extends ScreenAdapter {
                 plate.setPressedByClone(false);
             }
 
-            if (isRecording && plate.wasJustChanged()) {
+            if (
+                isRecording
+                    && plate.wasJustChanged()
+            ) {
 
                 record.recordingPlate(
                     plate.getId(),
@@ -346,7 +441,10 @@ public class ScreenGame extends ScreenAdapter {
     private void checkPortal() {
 
         if (portal.getInPortal()) {
-            main.setScreen(new ScreenMenu(main));
+
+            main.setScreen(
+                new ScreenMenu(main)
+            );
         }
     }
 
@@ -375,32 +473,58 @@ public class ScreenGame extends ScreenAdapter {
                 float worldX = touchPos.x;
                 float worldY = touchPos.y;
 
-                if (rightMoveButton.IsHit(worldX, worldY)) {
+                if (
+                    rightMoveButton.IsHit(
+                        worldX,
+                        worldY
+                    )
+                ) {
 
                     person.moveRight();
 
                     anyButtonPressed = true;
                 }
 
-                if (leftMoveButton.IsHit(worldX, worldY)) {
+                if (
+                    leftMoveButton.IsHit(
+                        worldX,
+                        worldY
+                    )
+                ) {
 
                     person.moveLeft();
 
                     anyButtonPressed = true;
                 }
 
-                if (jumpButton.IsHit(worldX, worldY)) {
+                if (
+                    jumpButton.IsHit(
+                        worldX,
+                        worldY
+                    )
+                ) {
+
                     person.jump();
                 }
 
-                if (recordStartButton.IsHit(worldX, worldY)) {
+                if (
+                    recordStartButton.IsHit(
+                        worldX,
+                        worldY
+                    )
+                ) {
 
                     if (!isRecording) {
                         startRecording();
                     }
                 }
 
-                if (recordEndButton.IsHit(worldX, worldY)) {
+                if (
+                    recordEndButton.IsHit(
+                        worldX,
+                        worldY
+                    )
+                ) {
 
                     if (isRecording) {
                         stopRecording();
@@ -408,14 +532,25 @@ public class ScreenGame extends ScreenAdapter {
                 }
 
                 if (
-                    replayButton.IsHit(worldX, worldY)
+                    replayButton.IsHit(
+                        worldX,
+                        worldY
+                    )
                         && !isRecording
                         && !isReplaying
                         && record.getPositions().size() > 0
                 ) {
+
                     startReplay();
                 }
-                if (menuButton.IsHit(worldX , worldY)){
+
+                if (
+                    menuButton.IsHit(
+                        worldX,
+                        worldY
+                    )
+                ) {
+
                     main.setScreen(
                         new ScreenMenu(main)
                     );
@@ -436,7 +571,9 @@ public class ScreenGame extends ScreenAdapter {
 
         gameTime = 0;
 
-        System.out.println("Recording started");
+        System.out.println(
+            "Recording started"
+        );
     }
 
     private void stopRecording() {
@@ -450,7 +587,8 @@ public class ScreenGame extends ScreenAdapter {
     }
 
     private void startReplay() {
-        MusicManager.playMenuMusic();
+
+        MusicManager.playReplayMusic();
 
         isReplaying = true;
 
@@ -479,13 +617,37 @@ public class ScreenGame extends ScreenAdapter {
 
         main.camera.update();
 
-        main.batch.setProjectionMatrix(main.camera.combined);
+        main.batch.setProjectionMatrix(
+            main.camera.combined
+        );
 
         ScreenUtils.clear(Color.CLEAR);
 
         main.batch.begin();
 
         drawBackground();
+
+        main.batch.setColor(
+            0f,
+            0f,
+            0f,
+            0.3f
+        );
+
+        main.batch.draw(
+            darkTexture,
+            0,
+            0,
+            SCREEN_WIDTH,
+            SCREEN_HEIGHT
+        );
+
+        main.batch.setColor(
+            1f,
+            1f,
+            1f,
+            1f
+        );
 
         drawWorld();
 
@@ -510,6 +672,7 @@ public class ScreenGame extends ScreenAdapter {
     }
 
     private void drawWorld() {
+
         if (doors != null) {
 
             for (Door door : doors) {
@@ -526,11 +689,12 @@ public class ScreenGame extends ScreenAdapter {
         for (PressurePlate plate : plates) {
             plate.draw(main.batch);
         }
-
-
     }
 
+    private Texture uiBg;
+
     private void drawUI() {
+
         menuButton.draw(main.batch);
 
         leftMoveButton.draw(main.batch);
@@ -544,6 +708,80 @@ public class ScreenGame extends ScreenAdapter {
         recordEndButton.draw(main.batch);
 
         replayButton.draw(main.batch);
+
+        uiFont.getData().setScale(0.68f);
+
+        if (isRecording) {
+
+            main.batch.setColor(
+                0f,
+                0f,
+                0f,
+                0.60f
+            );
+
+            main.batch.draw(
+                uiBg,
+                15,
+                540,
+                240,
+                38
+            );
+
+            main.batch.setColor(
+                1f,
+                1f,
+                1f,
+                1f
+            );
+
+            uiFont.setColor(Color.RED);
+
+            uiFont.draw(
+                main.batch,
+                "RECORDING  " + String.format("%.1f", gameTime),
+                30,
+                565
+            );
+        }
+
+        if (isReplaying) {
+
+            main.batch.setColor(
+                0f,
+                0f,
+                0f,
+                0.60f
+            );
+
+            main.batch.draw(
+                uiBg,
+                15,
+                495,
+                240,
+                38
+            );
+
+            main.batch.setColor(
+                1f,
+                1f,
+                1f,
+                1f
+            );
+
+            uiFont.setColor(Color.CYAN);
+
+            uiFont.draw(
+                main.batch,
+                "REPLAY  " + String.format("%.1f", gameTime),
+                30,
+                520
+            );
+        }
+
+        uiFont.getData().setScale(1f);
+
+        uiFont.setColor(Color.WHITE);
     }
 
     private void drawReplay() {
@@ -554,13 +792,15 @@ public class ScreenGame extends ScreenAdapter {
                 && replay.isPlaying()
         ) {
 
-            Vector2 pos = replay.getCurrentPosition();
+            Vector2 pos =
+                replay.getCurrentPosition();
 
             if (pos == null) {
                 return;
             }
 
-            int frame = replay.getCurrentFrame();
+            int frame =
+                replay.getCurrentFrame();
 
             animatedClone.setState(
                 replay.getIsWalking(frame),
@@ -568,7 +808,10 @@ public class ScreenGame extends ScreenAdapter {
                 replay.getFacingRight(frame)
             );
 
-            animatedClone.setPosition(pos.x, pos.y);
+            animatedClone.setPosition(
+                pos.x,
+                pos.y
+            );
 
             animatedClone.update(
                 Gdx.graphics.getDeltaTime()
@@ -585,6 +828,10 @@ public class ScreenGame extends ScreenAdapter {
             backgroundTexture.dispose();
         }
 
+        if (darkTexture != null) {
+            darkTexture.dispose();
+        }
+
         leftMoveButton.dispose();
         rightMoveButton.dispose();
         jumpButton.dispose();
@@ -592,6 +839,7 @@ public class ScreenGame extends ScreenAdapter {
         recordStartButton.dispose();
         recordEndButton.dispose();
         replayButton.dispose();
+
         menuButton.dispose();
 
         if (person != null) {
@@ -616,6 +864,10 @@ public class ScreenGame extends ScreenAdapter {
 
         if (animatedPlayer != null) {
             animatedPlayer.dispose();
+        }
+
+        if (uiBg != null) {
+            uiBg.dispose();
         }
 
         record.deleteRecord();
