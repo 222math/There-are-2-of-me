@@ -1,4 +1,4 @@
-// AnimatedClone.java
+
 package CloneGame.Engine.Animated;
 
 import com.badlogic.gdx.graphics.Color;
@@ -66,9 +66,9 @@ public class AnimatedClone {
             tex = facingRight ? idleRight : idleLeft;
         }
 
-        // Включаем смешивание для прозрачности
-        batch.setColor(1, 1, 1, 0.45f);  // 0.4 = 40% непрозрачности
+       
+        batch.setColor(1, 1, 1, 0.45f);  
         batch.draw(tex, x - width/2f, y - height/2f, width, height);
-        batch.setColor(Color.WHITE);  // Сбрасываем
+        batch.setColor(Color.WHITE);  
     }
 }
