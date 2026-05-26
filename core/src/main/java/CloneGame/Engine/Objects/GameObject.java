@@ -64,8 +64,7 @@ public class GameObject {
         fixtureDef.friction = 1f;
 
         body.createFixture(fixtureDef);
-        rectangleShape.dispose(); // Обязательно освобождаем память
-
+        rectangleShape.dispose(); 
         body.setTransform(x * SCALE, y * SCALE, 0);
         body.setUserData(this);
         return body;
