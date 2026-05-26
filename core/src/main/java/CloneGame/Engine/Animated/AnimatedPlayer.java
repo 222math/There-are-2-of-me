@@ -34,7 +34,7 @@ public class AnimatedPlayer extends Sprite {
     }
 
     public void update(float delta, boolean isWalking, boolean isJumping, boolean isMovingRight) {
-        // ОБНОВЛЯЕМ НАПРАВЛЕНИЕ ВСЕГДА, когда есть движение или был прыжок
+       
         if (isWalking || isJumping) {
             facingRight = isMovingRight;
         }
