@@ -27,10 +27,10 @@ public class Person extends GameObject {
     }
 
     public boolean isOnGround() {
-        return groundContacts > 0; // Используем счётчик вместо флага
+        return groundContacts > 0; // Используем счётчик 
     }
 
-    // Новые методы для подсчёта контактов
+    
     public void incrementGroundContacts() {
         groundContacts++;
         isOnGround = true;
