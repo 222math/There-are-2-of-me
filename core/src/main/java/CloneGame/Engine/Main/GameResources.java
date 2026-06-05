@@ -36,7 +36,7 @@ public class GameResources {
     public static String SLIDER_BG_STOP_IMG_PATH = "button/slider.png";
     public static String SLIDER_BUT_IMG_PATH = "button/slider_but.png";
 
-    // Анимация Зоро (кадры)
+    // Анимация перса (кадры)
     public static String ZORO_IDLE_RIGHT = "zoro/img_5.png";
     public static String ZORO_IDLE_LEFT = "zoro/img_4.png";
 
