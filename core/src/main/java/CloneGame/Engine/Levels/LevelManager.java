@@ -36,15 +36,6 @@ public class LevelManager {
         return loadLevel(currentLevelIndex + 1, world);
     }
 
-    public List<Class<? extends Level>> getLevelClasses() {
-        return levelClasses;
-    }
+    
 
-    public Level getCurrentLevel() {
-        return currentLevel;
-    }
-
-    public int getCurrentLevelIndex() {
-        return currentLevelIndex;
-    }
 }
