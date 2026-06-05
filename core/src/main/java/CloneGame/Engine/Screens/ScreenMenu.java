@@ -139,7 +139,7 @@ public class ScreenMenu extends ScreenAdapter {
         float x = touchPos.x;
         float y = touchPos.y;
 
-        // ===== CLOSE TUTORIAL =====
+        
 
         if (showTutorial) {
 
