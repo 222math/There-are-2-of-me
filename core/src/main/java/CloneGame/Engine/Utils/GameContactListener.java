@@ -42,7 +42,7 @@ public class GameContactListener implements ContactListener {
         // Обработка двери
         if (person != null && door != null) {
             if (!door.isOpen()) {
-                // Проверяем, стоит ли игрок СВЕРХУ на двери
+                
                 if (isStandingOnTop(contact, person)) {
                     person.setOnGround(true);
                     person.incrementGroundContacts();
@@ -108,19 +108,19 @@ public class GameContactListener implements ContactListener {
         Vector2 normal = worldManifold.getNormal();
 
         // Если нормаль направлена вверх - игрок стоит на объекте
-        // (нормаль указывает от объекта A к объекту B)
+        
         float personBottom = person.getY() - person.getHeight() / 2f;
 
         // Проверяем точки контакта
         for (int i = 0; i < contact.getWorldManifold().getNumberOfContactPoints(); i++) {
             Vector2 point = worldManifold.getPoints()[i];
             // Если точка контакта ниже центра персонажа - он стоит на объекте
-            if (point.y <= personBottom + 5) { // +5 для погрешности
+            if (point.y <= personBottom + 5) { 
                 return true;
             }
         }
 
-        // Дополнительная проверка: нормаль направлена вверх
-        return normal.y > 0.5f; // Если нормаль в основном направлена вверх
+        // Дополнительная проверка
+        return normal.y > 0.5f;
     }
 }
