@@ -38,10 +38,10 @@ public class Level1 extends Level {
         platforms.add(new Platform(PLATFORM_IMG_PATH, SCREEN_WIDTH / 2, -20, SCREEN_WIDTH + 100, 20, world));
 
 
-        // ========== ЗЕМЛЯ ==========
+
         platforms.add(new Platform(PLATFORM_IMG_PATH, SCREEN_WIDTH/2, 0, SCREEN_WIDTH, 25, world));
 
-        // ========== ПУТЬ 1 (для записи клона) ==========
+
         platforms.add(new Platform(PLATFORM_IMG_PATH, 200, 100, 80, 25, world));
         platforms.add(new Platform(PLATFORM_IMG_PATH, 350, 180, 80, 25, world));
         platforms.add(new Platform(PLATFORM_IMG_PATH, 500, 260, 80, 25, world));
@@ -61,7 +61,7 @@ public class Level1 extends Level {
 
 
 
-        // ========== ПОРТАЛ ==========
+
         portal = new Portal(PORTAL_IMG_PATH, 1000, 120, 50, 80, world);
         portal.setInPortal(false);
     }

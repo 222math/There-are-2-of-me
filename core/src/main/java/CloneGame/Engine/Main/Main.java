@@ -30,7 +30,7 @@ public class Main extends Game {
     ScreenMenu screenMenu;
     float accumulator = 0;
     public Vector3 touch;
-    public GameContactListener contactListener;  // должно быть public, не private
+    public GameContactListener contactListener;
 
 
 

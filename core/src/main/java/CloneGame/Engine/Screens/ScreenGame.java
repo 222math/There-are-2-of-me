@@ -11,6 +11,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
@@ -673,6 +674,23 @@ public class ScreenGame extends ScreenAdapter {
         drawUI();
 
         main.batch.end();
+
+
+        main.batch.setProjectionMatrix(
+            new Matrix4().setToOrtho2D(
+                0,
+                0,
+                Gdx.graphics.getWidth(),
+                Gdx.graphics.getHeight()
+            )
+        );
+
+        main.batch.begin();
+
+//        hintButton.render(main.batch);
+          hintWindow.render(main.batch);
+
+        main.batch.end();
     }
 
     private void drawBackground() {
@@ -798,7 +816,7 @@ public class ScreenGame extends ScreenAdapter {
 
         uiFont.setColor(Color.WHITE);
         hintButton.render(main.batch);
-        hintWindow.render(main.batch);
+        //hintWindow.render(main.batch);
     }
 
     private void drawReplay() {
@@ -836,6 +854,7 @@ public class ScreenGame extends ScreenAdapter {
 
             animatedClone.draw(main.batch);
         }
+        System.out.println("hint visible: " + hintWindow.isVisible());
     }
 
     @Override

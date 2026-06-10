@@ -1,5 +1,8 @@
 package CloneGame.Engine.Components;
 
+import static CloneGame.Engine.Main.GameSettings.SCREEN_HEIGHT;
+import static CloneGame.Engine.Main.GameSettings.SCREEN_WIDTH;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -54,7 +57,7 @@ public class HintWindow {
         if (!visible) return;
 
 
-        batch.setColor(0, 0, 0, 0.5f); // чёрный с прозрачностью
+        batch.setColor(0, 0, 0, 0.5f);
         batch.draw(
             background,
             0,
@@ -66,10 +69,8 @@ public class HintWindow {
         batch.setColor(1, 1, 1, 1);
 
 
-        batch.setColor(1, 1, 1, 0.9f);
-        batch.draw(background, x, y, width, height);
 
-        batch.setColor(1, 1, 1, 1);
+        batch.draw(background, x, y, width, height);
 
 
         font.draw(
