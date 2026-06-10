@@ -8,6 +8,7 @@ public class SoundManager {
     private static Sound jumpSound;
     private static Sound plateSound;
     private static Sound doorSound;
+    private static float volume = 1f;
     private static Sound portalSound;
 
     public static void load() {
@@ -36,29 +37,36 @@ public class SoundManager {
     public static void playJump() {
 
         if (jumpSound != null) {
-            jumpSound.play(1f);
+            jumpSound.play(volume);
         }
     }
 
     public static void playPlate() {
 
         if (plateSound != null) {
-            plateSound.play(0.5f);
+            plateSound.play(0.5f*volume);
         }
     }
 
     public static void playDoor() {
 
         if (doorSound != null) {
-            doorSound.play(0.7f);
+            doorSound.play(0.7f*volume);
         }
     }
 
     public static void playPortal() {
 
         if (portalSound != null) {
-            portalSound.play(0.5f);
+            portalSound.play(0.5f*volume);
         }
+    }
+    public static void setVolume(float newVolume){
+        volume = newVolume;
+    }
+
+    public static float getVolume(){
+        return volume;
     }
 
     public static void dispose() {

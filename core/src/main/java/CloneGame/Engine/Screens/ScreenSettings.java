@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import CloneGame.Engine.Audio.MusicManager;
+import CloneGame.Engine.Audio.SoundManager;
 import CloneGame.Engine.Components.TextButton;
 import CloneGame.Engine.Main.Main;
 import CloneGame.Engine.Utils.FontManager;
@@ -168,6 +169,11 @@ public class ScreenSettings extends ScreenAdapter {
                 if(soundButtonX > soundSliderX + sliderWidth - buttonWidth){
                     soundButtonX = soundSliderX + sliderWidth - buttonWidth;
                 }
+                float volume =
+                    (soundButtonX - soundSliderX) /
+                        (sliderWidth - buttonWidth);
+
+                SoundManager.setVolume(volume);
             }
 
         } else {
