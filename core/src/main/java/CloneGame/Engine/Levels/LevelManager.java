@@ -15,8 +15,8 @@ public class LevelManager {
 
 
         levelClasses.add(Level1.class);
-        levelClasses.add(Level2.class);
         levelClasses.add(Level4.class);
+        levelClasses.add(Level2.class);
     }
 
     public Level loadLevel(int index , World world){
@@ -36,6 +36,6 @@ public class LevelManager {
         return loadLevel(currentLevelIndex + 1, world);
     }
 
-    
+
 
 }

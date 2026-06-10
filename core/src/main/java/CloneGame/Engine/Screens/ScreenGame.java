@@ -21,6 +21,8 @@ import java.util.List;
 import CloneGame.Engine.Animated.AnimatedClone;
 import CloneGame.Engine.Animated.AnimatedPlayer;
 import CloneGame.Engine.Audio.MusicManager;
+import CloneGame.Engine.Components.HintButton;
+import CloneGame.Engine.Components.HintWindow;
 import CloneGame.Engine.Components.TextButton;
 import CloneGame.Engine.Levels.Level;
 import CloneGame.Engine.Levels.LevelManager;
@@ -72,6 +74,8 @@ public class ScreenGame extends ScreenAdapter {
     private boolean isReplaying = false;
 
     private float gameTime = 0f;
+    private HintButton hintButton;
+    private HintWindow hintWindow;
 
     public ScreenGame(Main main, int levelNumber) {
 
@@ -154,7 +158,7 @@ public class ScreenGame extends ScreenAdapter {
             620,
             180,
             100,
-            "MENU",
+            "back",
             BUTTON_BG_RED_IMG_PATH
         );
 
@@ -234,6 +238,12 @@ public class ScreenGame extends ScreenAdapter {
             main.world
         );
 
+        hintButton = new HintButton();
+
+
+        String hintText = getHintForLevel(levelNumber);
+        hintWindow = new HintWindow(hintText);
+
         platforms = level.getPlatforms();
         plates = level.getPlates();
         doors = level.getDoors();
@@ -250,6 +260,21 @@ public class ScreenGame extends ScreenAdapter {
             PERSON_HEIGHT,
             main.world
         );
+    }
+
+    private String getHintForLevel(int level) {
+        switch (level) {
+            case 1:
+                return "You need to press both plates, use a clone for this";
+            case 2:
+                return "To open the door you need both plates, use the clone for this";
+            case 3:
+                return "To complete the level, you need to use the clone's actions recording and playback simultaneously. Yes, this is possible.";
+            case 4:
+                return "";
+            default:
+                return "Нет подсказки.";
+        }
     }
 
     @Override
@@ -448,19 +473,41 @@ public class ScreenGame extends ScreenAdapter {
         }
     }
 
+    private boolean hintPressedLastFrame = false;
+
     private void handleInput() {
 
-        boolean anyButtonPressed = false;
-
         Vector3 touchPos = new Vector3();
+
+
+        if (hintWindow.isVisible()) {
+
+            if (Gdx.input.justTouched()) {
+                touchPos.set(
+                    Gdx.input.getX(),
+                    Gdx.input.getY(),
+                    0
+                );
+
+                main.camera.unproject(touchPos);
+
+                if (hintButton.isClicked(touchPos.x, touchPos.y)) {
+                    hintWindow.toggle(); // закрыть
+                }
+            }
+
+            return;
+        }
+
+        boolean anyButtonPressed = false;
+        boolean hintPressedNow = false;
+
 
         if (Gdx.input.isTouched()) {
 
             for (int i = 0; i < 10; i++) {
 
-                if (!Gdx.input.isTouched(i)) {
-                    continue;
-                }
+                if (!Gdx.input.isTouched(i)) continue;
 
                 touchPos.set(
                     Gdx.input.getX(i),
@@ -473,87 +520,53 @@ public class ScreenGame extends ScreenAdapter {
                 float worldX = touchPos.x;
                 float worldY = touchPos.y;
 
-                if (
-                    rightMoveButton.IsHit(
-                        worldX,
-                        worldY
-                    )
-                ) {
 
+                if (rightMoveButton.IsHit(worldX, worldY)) {
                     person.moveRight();
-
                     anyButtonPressed = true;
                 }
 
-                if (
-                    leftMoveButton.IsHit(
-                        worldX,
-                        worldY
-                    )
-                ) {
-
+                if (leftMoveButton.IsHit(worldX, worldY)) {
                     person.moveLeft();
-
                     anyButtonPressed = true;
                 }
 
-                if (
-                    jumpButton.IsHit(
-                        worldX,
-                        worldY
-                    )
-                ) {
-
+                if (jumpButton.IsHit(worldX, worldY)) {
                     person.jump();
                 }
 
-                if (
-                    recordStartButton.IsHit(
-                        worldX,
-                        worldY
-                    )
-                ) {
 
+                if (recordStartButton.IsHit(worldX, worldY)) {
                     if (!isRecording) {
                         startRecording();
                     }
                 }
 
-                if (
-                    recordEndButton.IsHit(
-                        worldX,
-                        worldY
-                    )
-                ) {
-
+                if (recordEndButton.IsHit(worldX, worldY)) {
                     if (isRecording) {
                         stopRecording();
                     }
                 }
 
-                if (
-                    replayButton.IsHit(
-                        worldX,
-                        worldY
-                    )
-                        && !isRecording
-                        && !isReplaying
-                        && record.getPositions().size() > 0
-                ) {
+                if (replayButton.IsHit(worldX, worldY)
+                    && !isRecording
+                    && !isReplaying
+                    && record.getPositions().size() > 0) {
 
                     startReplay();
                 }
 
-                if (
-                    menuButton.IsHit(
-                        worldX,
-                        worldY
-                    )
-                ) {
+                if (menuButton.IsHit(worldX, worldY)) {
+                    main.setScreen(new ScreenMenu(main));
+                }
 
-                    main.setScreen(
-                        new ScreenMenu(main)
-                    );
+
+                if (hintButton.isClicked(worldX, worldY)) {
+                    hintPressedNow = true;
+
+                    if (!hintPressedLastFrame) {
+                        hintWindow.toggle();
+                    }
                 }
             }
         }
@@ -561,6 +574,8 @@ public class ScreenGame extends ScreenAdapter {
         if (!anyButtonPressed) {
             person.stop();
         }
+
+        hintPressedLastFrame = hintPressedNow;
     }
 
     private void startRecording() {
@@ -782,6 +797,8 @@ public class ScreenGame extends ScreenAdapter {
         uiFont.getData().setScale(1f);
 
         uiFont.setColor(Color.WHITE);
+        hintButton.render(main.batch);
+        hintWindow.render(main.batch);
     }
 
     private void drawReplay() {
