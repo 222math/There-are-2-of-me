@@ -94,7 +94,6 @@ public class TutorialWindow {
 
         closeButton.draw(batch);
 
-        // ===== LEFT =====
 
         batch.draw(
             leftBtn,
@@ -186,7 +185,7 @@ public class TutorialWindow {
             88
         );
 
-        // ===== RIGHT =====
+
 
         batch.setColor(
             1f,

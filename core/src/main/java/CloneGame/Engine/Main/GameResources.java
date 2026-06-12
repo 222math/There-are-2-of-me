@@ -23,6 +23,7 @@ public class GameResources {
     // Фон
     public static String BACKGROUND_MENU_IMG_PATH = "background/menu_1.png";
     public static String BACKGROUND_LEVELS_IMG_PATH = "background/levels.png";
+    public static String BACKGROUND_WIN_IMG_PATH = "background/win.png";
     public static String BACKGROUND_GAME_IMG_PATH = "background/game_1.png";
     public static String BACKGROUND_SETTING_IMG_PATH = "background/setting.png";
 
@@ -33,6 +34,7 @@ public class GameResources {
     public static String BUTTON_BG_PLAY_IMG_PATH = "button/play.png";
     public static String BUTTON_BG_REPLAY_IMG_PATH = "button/replay.png";
     public static String BUTTON_BG_STOP_IMG_PATH = "button/stop.png";
+    public static String BUTTON_BG_SOON_IMG_PATH = "button/coming_soon.png";
     public static String SLIDER_BG_STOP_IMG_PATH = "button/slider.png";
     public static String SLIDER_BUT_IMG_PATH = "button/slider_but.png";
 

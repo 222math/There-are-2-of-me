@@ -77,6 +77,7 @@ public class ScreenGame extends ScreenAdapter {
     private float gameTime = 0f;
     private HintButton hintButton;
     private HintWindow hintWindow;
+    private ScreenWin screenWin;
 
     public ScreenGame(Main main, int levelNumber) {
 
@@ -469,7 +470,7 @@ public class ScreenGame extends ScreenAdapter {
         if (portal.getInPortal()) {
 
             main.setScreen(
-                new ScreenMenu(main)
+                new ScreenWin(main , level.getLevelNumber())
             );
         }
     }
@@ -558,7 +559,7 @@ public class ScreenGame extends ScreenAdapter {
                 }
 
                 if (menuButton.IsHit(worldX, worldY)) {
-                    main.setScreen(new ScreenMenu(main));
+                    main.setScreen(new ScreenLevelSelect(main));
                 }
 
 
